@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Recipe List | Cook Recipe 2021{% endblock %}
+
+{% block contents %}
+<div class="text-center my-5">
+    <div class="mb-5">
+        『{{ keyword }}の検索結果』
+    </div>
+    <div class="row">
+        {% for recipe in recipe_data %}
+            <div class="col-3 mb-3">
+                <div class="card image-thumbnail booklist h-100">
+                    <img src="{{ recipe.image }}" alt="" class="card-img-top card-thum">
+                    <div class="card-body text-center px-2 py-3">
+                        <h5 class="font-weight-hold">{{ recipe.product }}</h5>
+                    </div>
+                    <a href="#" class="stretched-link"></a>
+                </div>
+            </div>
+        {% empty %}
+            <p>該当するものはありません。</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

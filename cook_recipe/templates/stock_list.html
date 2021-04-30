@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sell_by_extra %}
+
+{% block title %}Stock List | Cook Recipe{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="row">
+        <div class="my-div-style w-100">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="align-items-center">
+                        {% render_field form.product class="form-control" placeholder="レシピを検索" %}
+                        <button class="btn btn-light mt-2" type="submit">検索</button>
+                    </div>
+                </form>
+                <h1>Stock List</h1>
+                <div class="clearfix">
+                    <a href="{% url 'cook_recipe:stock_create' %}" class="btn btn-success float-right">商品追加</a>
+                </div>
+                <table class="table">
+                    <thead>
+                      <tr class="bg-light">
+                        <th scope="col">商品</th>
+                        <th scope="col">製造業者</th>
+                        <th scope="col">賞味期限</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for stock in stock_list %}
+                            <tr {% if stock.sell_by|is_three_days_later %} class="bg-warning" {% elif stock.sell_by|is_expired %} class="bg-danger" {% endif %}>
+                                <td>{{ stock.product }}</td>
+                                <td>{{ stock.maker }}</td>
+                                <td>{{ stock.sell_by|date:"y/m/d" }}</td>
+                                <td><a href="{% url 'cook_recipe:stock_delete' stock.pk %}" class="btn btn-info">削除</a></td>
+                            </tr>
+                        {% empty %}
+                            <p>データがありません。</p>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

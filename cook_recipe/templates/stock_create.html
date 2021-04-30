@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Stock Add | Cook Recipe{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="row">
+        <div class="my-div-style">
+            <h1>Stock Add</h1>
+            <form enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <p>商品 : {{ form.product }}</p>
+                    <p>製造業者 : {{ form.maker }}</p>
+                    <p>賞味期限 : <input type="date" id="{{ form.sell_by }}</p>
+                </table>
+                <button type="submit" class="btn btn-primary">作成</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+body,#wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    padding: 20px;
+    margin-top: auto;
+}
+.copyright {
+    font-size: 20px;
+    text-align: center;
+}
+
+.my-div-style {
+    margin-top: 8rem;
+}
